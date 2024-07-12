@@ -1,11 +1,25 @@
+import UserService from "../services/user-service.js";
+
 export const authResolver = {
-    getAllUsers: () => {
-        return 'users'
+    signUp: async ({username, email, password, password_confirmation}, req, res) => {
+        try {
+            const userData = await UserService.signUp(username, email, password, password_confirmation)
+            // res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+            return userData
+        } catch (e) {
+            throw new Error(e)
+        }
     },
-    getUser: ({id}) => {
+    signIn: async ({usernameOrEmail, password}, req, res) => {
         return 'user'
     },
-    createUser: ({input}) => {
+    refresh: async (_args, req, res) => {
         return 'create'
+    },
+    logout: async (_args, req, res) => {
+        return 'create'
+    },
+    check: async (_arg, req, res) => {
+
     }
 }
